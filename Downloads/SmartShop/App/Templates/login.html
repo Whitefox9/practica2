@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SmartShop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Impact|Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #181026;
+            color: #fff;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+        h1 {
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+            color: #b300ff;
+        }
+        .card {
+            background: #2d0140;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #b300ff55;
+        }
+        .btn-morado {
+            background: #b300ff;
+            color: #fff;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .btn-morado:hover {
+            background: #7a0099;
+        }
+        label {
+            color: #b300ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal fade show" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-modal="true" role="dialog" style="display:block; background:rgba(24,16,38,0.95);">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title w-100 text-center" id="loginModalLabel" style="font-family:Impact; color:#b300ff;">Login</h1>
+          </div>
+          <div class="modal-body">
+            <form id="formLogin">
+                <div class="mb-3">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-morado w-100 mb-2">Ingresar</button>
+                <button type="button" class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title w-100 text-center" id="registerModalLabel" style="font-family:Impact; color:#b300ff;">Registro</h1>
+          </div>
+          <div class="modal-body">
+            <form id="formRegister">
+                <div class="mb-3">
+                    <label for="nuevo_usuario">Usuario</label>
+                    <input type="text" class="form-control" id="nuevo_usuario" name="nuevo_usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_email">Email</label>
+                    <input type="email" class="form-control" id="nuevo_email" name="nuevo_email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_password">Contraseña</label>
+                    <input type="password" class="form-control" id="nuevo_password" name="nuevo_password" required>
+                </div>
+                <button type="submit" class="btn btn-morado w-100">Registrarse</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="contenido" style="display:none;">
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+            <div class="col-md-5">
+                <div class="card p-4">
+                    <h1 class="text-center mb-4">Bienvenido a SmartShop</h1>
+                    <p class="text-center">Has iniciado sesión correctamente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para verificar autenticación
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/check-auth');
+                if (!response.ok) {
+                    console.error('Error en check-auth:', response.status);
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    console.log('✅ Usuario autenticado, redirigiendo a dashboard');
+                    window.location.href = '/dashboard';
+                }
+            } catch (error) {
+                console.error('Error al verificar autenticación:', error);
+                // No bloqueamos si hay error en check-auth
+            }
+        }
+
+        // Inicializar cuando el DOM está listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticación
+            checkAuthentication();
+
+            const formLogin = document.getElementById('formLogin');
+            const formRegister = document.getElementById('formRegister');
+
+            // Evento para login
+            if (formLogin) {
+                formLogin.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const usuario = document.getElementById('usuario').value.trim();
+                    const password = document.getElementById('password').value;
+
+                    if (!usuario || !password) {
+                        alert('Por favor completa todos los campos');
+                        return;
+                    }
+
+                    try {
+                        console.log('📤 Enviando datos de login:', { usuario });
+
+                        const response = await fetch('/api/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                usuario: usuario,
+                                password: password
+                            })
+                        });
+
+                        console.log('📥 Status:', response.status);
+                        
+                        if (!response.ok) {
+                            console.error('Response no OK:', response.status);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('📥 Respuesta:', data);
+
+                        if (data.success) {
+                            alert('¡Bienvenido ' + data.user.usuario + '!');
+                            window.location.href = '/';
+                        } else {
+                            alert('Error: ' + (data.message || 'Error desconocido'));
+                        }
+                    } catch (error) {
+                        console.error('❌ Error:', error);
+                        console.error('Stack:', error.stack);
+                        alert('Error al conectar con el servidor: ' + error.message);
+                    }
+                });
+            }
+
+            // Evento para registro en el modal
+            if (formRegister) {
+                formRegister.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const nuevo_usuario = document.getElementById('nuevo_usuario').value.trim();
+                    const nuevo_email = document.getElementById('nuevo_email').value.trim();
+                    const nuevo_password = document.getElementById('nuevo_password').value;
+
+                    if (!nuevo_usuario || !nuevo_email || !nuevo_password) {
+                        alert('Por favor completa todos los campos');
+                        return;
+                    }
+
+                    if (nuevo_usuario.length < 3) {
+                        alert('El usuario debe tener al menos 3 caracteres');
+                        return;
+                    }
+
+                    if (nuevo_password.length < 6) {
+                        alert('La contraseña debe tener al menos 6 caracteres');
+                        return;
+                    }
+
+                    try {
+                        console.log('📤 Enviando datos de registro:', {
+                            usuario: nuevo_usuario,
+                            email: nuevo_email
+                        });
+
+                        const response = await fetch('/api/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                nuevo_usuario: nuevo_usuario,
+                                nuevo_email: nuevo_email,
+                                nuevo_password: nuevo_password
+                            })
+                        });
+
+                        console.log('📥 Status:', response.status);
+                        
+                        if (!response.ok) {
+                            console.error('Response no OK:', response.status);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('📥 Respuesta:', data);
+
+                        if (data.success) {
+                            alert('¡Registro exitoso! Por favor inicia sesión');
+                            // Cerrar modal
+                            const registerModal = document.getElementById('registerModal');
+                            if (registerModal) {
+                                const modalInstance = bootstrap.Modal.getInstance(registerModal);
+                                if (modalInstance) modalInstance.hide();
+                            }
+                            formRegister.reset();
+                            // Limpiar campo de login también
+                            formLogin.reset();
+                        } else {
+                            alert('Error: ' + (data.message || 'Error desconocido'));
+                        }
+                    } catch (error) {
+                        console.error('❌ Error:', error);
+                        console.error('Stack:', error.stack);
+                        alert('Error al conectar con el servidor: ' + error.message);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

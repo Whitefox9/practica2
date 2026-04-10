@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - SmartShop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Impact|Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #181026;
+            color: #fff;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+        h1 {
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+            color: #b300ff;
+        }
+        .card {
+            background: #2d0140;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #b300ff55;
+        }
+        .btn-morado {
+            background: #b300ff;
+            color: #fff;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .btn-morado:hover {
+            background: #7a0099;
+        }
+        label {
+            color: #b300ff;
+            font-weight: bold;
+        }
+        .btn-login {
+            color: #b300ff;
+            text-decoration: none;
+        }
+        .btn-login:hover {
+            color: #7a0099;
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="col-md-5">
+            <div class="card p-4">
+                <h1 class="text-center mb-4">Registro</h1>
+                <form id="formRegister">
+                    <div class="mb-3">
+                        <label for="usuario">Nombre de usuario</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" required>
+                        <small class="text-muted">Mínimo 3 caracteres</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <small class="text-muted">Mínimo 6 caracteres</small>
+                    </div>
+                    <button type="submit" class="btn btn-morado w-100 mb-2">Registrarse</button>
+                    <p class="text-center">¿Ya tienes cuenta? <a href="/login" class="btn-login">Inicia sesión</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para verificar autenticación
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/check-auth');
+                if (!response.ok) {
+                    console.error('Error en check-auth:', response.status);
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    console.log('✅ Usuario autenticado, redirigiendo a dashboard');
+                    window.location.href = '/dashboard';
+                }
+            } catch (error) {
+                console.error('Error al verificar autenticación:', error);
+                // No bloqueamos si hay error en check-auth
+            }
+        }
+
+        // Inicializar cuando el DOM está listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticación
+            checkAuthentication();
+
+            // Evento para registro
+            const formRegister = document.getElementById('formRegister');
+            if (formRegister) {
+                formRegister.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Obtener valores del formulario
+                    const nuevo_usuario = document.getElementById('usuario').value.trim();
+                    const nuevo_email = document.getElementById('email').value.trim();
+                    const nuevo_password = document.getElementById('password').value;
+
+                    // Validación básica
+                    if (!nuevo_usuario || !nuevo_email || !nuevo_password) {
+                        alert('Por favor completa todos los campos');
+                        return;
+                    }
+
+                    if (nuevo_usuario.length < 3) {
+                        alert('El usuario debe tener al menos 3 caracteres');
+                        return;
+                    }
+
+                    if (nuevo_password.length < 6) {
+                        alert('La contraseña debe tener al menos 6 caracteres');
+                        return;
+                    }
+
+                    try {
+                        console.log('📤 Enviando datos de registro:', {
+                            usuario: nuevo_usuario,
+                            email: nuevo_email
+                        });
+
+                        const response = await fetch('/api/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                nuevo_usuario: nuevo_usuario,
+                                nuevo_email: nuevo_email,
+                                nuevo_password: nuevo_password
+                            })
+                        });
+
+                        console.log('📥 Status:', response.status);
+                        
+                        if (!response.ok) {
+                            console.error('Response no OK:', response.status);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('📥 Respuesta:', data);
+
+                        if (data.success) {
+                            alert('¡Registro exitoso! Redirigiendo a login...');
+                            window.location.href = '/login';
+                        } else {
+                            alert('Error: ' + (data.message || 'Error desconocido'));
+                        }
+                    } catch (error) {
+                        console.error('❌ Error:', error);
+                        console.error('Stack:', error.stack);
+                        alert('Error al conectar con el servidor: ' + error.message);
+                    }
+                });
+            } else {
+                console.error('❌ Formulario de registro no encontrado');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartShop - Página de Ventas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Impact|Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #181026;
+            color: #fff;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+            color: #b300ff;
+        }
+        .navbar {
+            background: #2d0140;
+        }
+        .nav-link, .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #b300ff !important;
+        }
+        .card {
+            background: #2d0140;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #b300ff55;
+        }
+        .btn-morado {
+            background: #b300ff;
+            color: #fff;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .btn-morado:hover {
+            background: #7a0099;
+        }
+        .modal-content {
+            background: #181026;
+            color: #fff;
+            border-radius: 10px;
+        }
+        label {
+            color: #b300ff;
+            font-weight: bold;
+        }
+        footer {
+            background: #181026;
+            color: #b300ff;
+            text-align: center;
+            padding: 20px 0;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .producto-icono {
+            filter: brightness(0) invert(1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">SmartShop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#productosModal">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#serviciosModal">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactoModal">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Panel de Gestión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center py-5">
+        <h1>Bienvenido a SmartShop</h1>
+        <p class="lead">Tu tienda en línea de productos y servicios tecnológicos</p>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Smartphone" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Smartphone</h3>
+                        <p>Última generación, pantalla AMOLED, cámara 108MP.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041913.png" alt="Laptop" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Laptop</h3>
+                        <p>Procesador Intel i7, 16GB RAM, SSD 512GB.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041917.png" alt="Audífonos" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Audífonos</h3>
+                        <p>Bluetooth, cancelación de ruido, batería de larga duración.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041922.png" alt="Tablet" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Tablet</h3>
+                        <p>Pantalla 10", 128GB, batería de larga duración.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041920.png" alt="Smartwatch" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Smartwatch</h3>
+                        <p>Monitor de salud, resistente al agua, notificaciones inteligentes.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041923.png" alt="Teclado Mecánico" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Teclado Mecánico</h3>
+                        <p>RGB, switches silenciosos, diseño ergonómico.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041921.png" alt="Mouse Gamer" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Mouse Gamer</h3>
+                        <p>Alta precisión, luces LED, botones programables.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041914.png" alt="Monitor 4K" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Monitor 4K</h3>
+                        <p>Ultra HD, 27 pulgadas, tasa de refresco 144Hz.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041918.png" alt="Impresora Multifuncional" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Impresora Multifuncional</h3>
+                        <p>WiFi, escáner, impresión a color y blanco/negro.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041919.png" alt="Altavoz Bluetooth" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Altavoz Bluetooth</h3>
+                        <p>Sonido envolvente, batería recargable, resistente al agua.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041924.png" alt="Cámara Web HD" class="mb-2 producto-icono" style="width:48px;height:48px;">
+                        <h3>Cámara Web HD</h3>
+                        <p>1080p, micrófono integrado, fácil instalación.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#productosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Reparación</h3>
+                        <p>Servicio técnico especializado para tus dispositivos.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#serviciosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Envío Express</h3>
+                        <p>Recibe tus compras en menos de 24 horas.</p>
+                        <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#serviciosModal">Ver más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Productos -->
+    <div class="modal fade" id="productosModal" tabindex="-1" aria-labelledby="productosModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="productosModalLabel">Productos</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Smartphone</h3>
+                            <p>Última generación, pantalla AMOLED, cámara 108MP.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Laptop</h3>
+                            <p>Procesador Intel i7, 16GB RAM, SSD 512GB.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Audífonos</h3>
+                            <p>Bluetooth, cancelación de ruido, batería de larga duración.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Tablet</h3>
+                            <p>Pantalla 10", 128GB, batería de larga duración.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Smartwatch</h3>
+                            <p>Monitor de salud, resistente al agua, notificaciones inteligentes.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Teclado Mecánico</h3>
+                            <p>RGB, switches silenciosos, diseño ergonómico.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Mouse Gamer</h3>
+                            <p>Alta precisión, luces LED, botones programables.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Monitor 4K</h3>
+                            <p>Ultra HD, 27 pulgadas, tasa de refresco 144Hz.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Impresora Multifuncional</h3>
+                            <p>WiFi, escáner, impresión a color y blanco/negro.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Altavoz Bluetooth</h3>
+                            <p>Sonido envolvente, batería recargable, resistente al agua.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Cámara Web HD</h3>
+                            <p>1080p, micrófono integrado, fácil instalación.</p>
+                            <button class="btn btn-morado" data-bs-toggle="modal" data-bs-target="#comprarModal">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Servicios -->
+    <div class="modal fade" id="serviciosModal" tabindex="-1" aria-labelledby="serviciosModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="serviciosModalLabel">Servicios</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>Reparación</h3>
+                    <p>Servicio técnico especializado para tus dispositivos.</p>
+                    <button class="btn btn-morado">Solicitar</button>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>Envío Express</h3>
+                    <p>Recibe tus compras en menos de 24 horas.</p>
+                    <button class="btn btn-morado">Solicitar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Contacto -->
+    <div class="modal fade" id="contactoModal" tabindex="-1" aria-labelledby="contactoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="contactoModalLabel">Contacto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-morado">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Comprar -->
+    <div class="modal fade" id="comprarModal" tabindex="-1" aria-labelledby="comprarModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="comprarModalLabel">Comprar Producto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formCompra">
+                <div id="step1">
+                    <div class="mb-3">
+                        <label for="correoCompra">Correo electrónico</label>
+                        <input type="email" class="form-control" id="correoCompra" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="celularCompra">Celular</label>
+                        <input type="tel" class="form-control" id="celularCompra" required>
+                    </div>
+                    <button type="button" class="btn btn-morado w-100" id="nextStep">Siguiente</button>
+                </div>
+                <div id="step2" style="display:none;">
+                    <div class="mb-3">
+                        <label for="metodoPago">Método de pago</label>
+                        <select class="form-control" id="metodoPago" required>
+                            <option value="">Selecciona...</option>
+                            <option value="tarjeta">Tarjeta de crédito/débito</option>
+                            <option value="transferencia">Transferencia bancaria</option>
+                            <option value="efectivo">Pago en efectivo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccionCompra">Dirección de entrega</label>
+                        <input type="text" class="form-control" id="direccionCompra" required>
+                    </div>
+                    <button type="submit" class="btn btn-morado w-100">Finalizar compra</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        document.getElementById('nextStep').addEventListener('click', function() {
+            var correo = document.getElementById('correoCompra').value;
+            var celular = document.getElementById('celularCompra').value;
+            if(correo && celular) {
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+            } else {
+                alert('Por favor ingresa tu correo electrónico y celular.');
+            }
+        });
+        document.getElementById('formCompra').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Compra realizada con éxito! Nos comunicaremos contigo al correo y celular proporcionados.');
+            var modal = bootstrap.Modal.getInstance(document.getElementById('comprarModal'));
+            modal.hide();
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('formCompra').reset();
+        });
+    </script>
+
+    <footer>
+        &copy; 2025 SmartShop - Todos los derechos reservados
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

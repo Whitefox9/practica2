@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - SmartShop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Impact|Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #181026;
+            color: #fff;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+            color: #b300ff;
+        }
+        .navbar {
+            background: #2d0140;
+        }
+        .nav-link, .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #b300ff !important;
+        }
+        .card {
+            background: #2d0140;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px #b300ff55;
+        }
+        .btn-morado {
+            background: #b300ff;
+            color: #fff;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .btn-morado:hover {
+            background: #7a0099;
+        }
+        table {
+            color: #fff;
+        }
+        th {
+            color: #b300ff;
+            font-family: 'Impact', 'Open Sans', Arial, sans-serif;
+        }
+        .table-dark {
+            background: #2d0140;
+        }
+        .section-title {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">SmartShop Dashboard</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#usuarios">Usuarios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ventas">Ventas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#facturas">Facturas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reportes">Generar Reportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mb-4 text-center">Panel de Gestión</h1>
+        <!-- Botón de cerrar sesión -->
+        <div class="d-flex justify-content-end mb-4">
+            <button id="btnLogout" class="btn btn-danger d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                  <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l2.147-2.146H4.5a.5.5 0 0 1 0-1h10.293L12.146 4.354a.5.5 0 0 1 .708-.708l3 3z"/>
+                </svg>
+                <span class="ms-2">Cerrar Sesión</span>
+            </button>
+        </div>
+        <!-- Usuarios -->
+        <h2 id="usuarios" class="section-title">Registro de Usuarios</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-morado mb-3" data-bs-toggle="modal" data-bs-target="#addUsuarioModal">Agregar Usuario</button>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>admin</td>
+                                <td>admin@smartshop.com</td>
+                                <td>Administrador</td>
+                                <td>
+                                    <button class="btn btn-morado btn-sm">Editar</button>
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                            <!-- Más usuarios aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Productos y Servicios -->
+        <h2 id="productos" class="section-title">Productos y Servicios</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-morado mb-3" data-bs-toggle="modal" data-bs-target="#addProductoModal">Agregar Producto</button>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Servicios</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Smartphone</td>
+                                <td>Pantalla AMOLED, cámara 108MP</td>
+                                <td><button class="btn btn-morado btn-sm" data-bs-toggle="modal" data-bs-target="#serviciosProductoModal">Gestionar Servicios</button></td>
+                                <td>
+                                    <button class="btn btn-morado btn-sm">Editar</button>
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                            <!-- Más productos aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Ventas -->
+        <h2 id="ventas" class="section-title">Ventas</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-morado mb-3" data-bs-toggle="modal" data-bs-target="#addVentaModal">Registrar Venta</button>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID Venta</th>
+                                <th>Producto</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>Smartphone</td>
+                                <td>admin</td>
+                                <td>2025-07-22</td>
+                                <td>$500</td>
+                                <td>
+                                    <button class="btn btn-morado btn-sm">Ver</button>
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                            <!-- Más ventas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Facturas -->
+        <h2 id="facturas" class="section-title">Facturas</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-morado mb-3" data-bs-toggle="modal" data-bs-target="#addFacturaModal">Generar Factura</button>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID Factura</th>
+                                <th>ID Venta</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>F001</td>
+                                <td>001</td>
+                                <td>admin</td>
+                                <td>2025-07-22</td>
+                                <td>$500</td>
+                                <td>
+                                    <button class="btn btn-morado btn-sm">Ver</button>
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                            <!-- Más facturas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Reportes -->
+        <h2 id="reportes" class="section-title">Generar Reportes</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <button class="btn btn-morado mb-3">Generar Reporte</button>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Reporte</th>
+                                <th>Fecha</th>
+                                <th>Usuario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ventas</td>
+                                <td>2025-07-22</td>
+                                <td>admin</td>
+                                <td><button class="btn btn-morado btn-sm">Ver</button></td>
+                            </tr>
+                            <tr>
+                                <td>Facturas</td>
+                                <td>2025-07-22</td>
+                                <td>admin</td>
+                                <td><button class="btn btn-morado btn-sm">Ver</button></td>
+                            </tr>
+                            <!-- Más reportes aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modales para agregar/gestionar -->
+    <!-- Modal Agregar Usuario -->
+    <div class="modal fade" id="addUsuarioModal" tabindex="-1" aria-labelledby="addUsuarioModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="addUsuarioModalLabel">Agregar Usuario</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="nuevo_usuario">Usuario</label>
+                    <input type="text" class="form-control" id="nuevo_usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_email">Email</label>
+                    <input type="email" class="form-control" id="nuevo_email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nuevo_rol">Rol</label>
+                    <select class="form-control" id="nuevo_rol">
+                        <option>Administrador</option>
+                        <option>Cliente</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-morado">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Agregar Producto -->
+    <div class="modal fade" id="addProductoModal" tabindex="-1" aria-labelledby="addProductoModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="addProductoModalLabel">Agregar Producto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="nombreProducto">Nombre</label>
+                    <input type="text" class="form-control" id="nombreProducto" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descProducto">Descripción</label>
+                    <input type="text" class="form-control" id="descProducto" required>
+                </div>
+                <button type="submit" class="btn btn-morado">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Gestionar Servicios de Producto -->
+    <div class="modal fade" id="serviciosProductoModal" tabindex="-1" aria-labelledby="serviciosProductoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="serviciosProductoModalLabel">Servicios del Producto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-morado mb-3" data-bs-toggle="modal" data-bs-target="#addServicioProductoModal">Agregar Servicio</button>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Reparación</td>
+                            <td>Servicio técnico especializado para este producto</td>
+                            <td>
+                                <button class="btn btn-morado btn-sm">Editar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <!-- Más servicios aquí -->
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Agregar Servicio a Producto -->
+    <div class="modal fade" id="addServicioProductoModal" tabindex="-1" aria-labelledby="addServicioProductoModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="addServicioProductoModalLabel">Agregar Servicio al Producto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="nombreServicioProducto">Nombre</label>
+                    <input type="text" class="form-control" id="nombreServicioProducto" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descServicioProducto">Descripción</label>
+                    <input type="text" class="form-control" id="descServicioProducto" required>
+                </div>
+                <button type="submit" class="btn btn-morado">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Registrar Venta -->
+    <div class="modal fade" id="addVentaModal" tabindex="-1" aria-labelledby="addVentaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="addVentaModalLabel">Registrar Venta</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="productoVenta">Producto</label>
+                    <input type="text" class="form-control" id="productoVenta" required>
+                </div>
+                <div class="mb-3">
+                    <label for="usuarioVenta">Usuario</label>
+                    <input type="text" class="form-control" id="usuarioVenta" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaVenta">Fecha</label>
+                    <input type="date" class="form-control" id="fechaVenta" required>
+                </div>
+                <div class="mb-3">
+                    <label for="totalVenta">Total</label>
+                    <input type="number" class="form-control" id="totalVenta" required>
+                </div>
+                <button type="submit" class="btn btn-morado">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Generar Factura -->
+    <div class="modal fade" id="addFacturaModal" tabindex="-1" aria-labelledby="addFacturaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="addFacturaModalLabel">Generar Factura</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="idVentaFactura">ID Venta</label>
+                    <input type="text" class="form-control" id="idVentaFactura" required>
+                </div>
+                <div class="mb-3">
+                    <label for="usuarioFactura">Usuario</label>
+                    <input type="text" class="form-control" id="usuarioFactura" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaFactura">Fecha</label>
+                    <input type="date" class="form-control" id="fechaFactura" required>
+                </div>
+                <div class="mb-3">
+                    <label for="totalFactura">Total</label>
+                    <input type="number" class="form-control" id="totalFactura" required>
+                </div>
+                <button type="submit" class="btn btn-morado">Guardar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Ver Usuario -->
+    <div class="modal fade" id="verUsuarioModal" tabindex="-1" aria-labelledby="verUsuarioModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="verUsuarioModalLabel">Ver Usuario</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body" id="verUsuarioBody">
+            <!-- Detalles del usuario -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formEditarUsuario">
+                <div class="mb-3">
+                    <label for="editar_usuario">Usuario</label>
+                    <input type="text" class="form-control" id="editar_usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editar_email">Email</label>
+                    <input type="email" class="form-control" id="editar_email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editar_rol">Rol</label>
+                    <select class="form-control" id="editar_rol">
+                        <option>Administrador</option>
+                        <option>Cliente</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-morado">Actualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para verificar autenticación
+        async function checkAuthAndProtect() {
+            try {
+                const response = await fetch('/api/check-auth');
+                if (!response.ok) {
+                    console.error('Error en check-auth:', response.status);
+                    window.location.href = '/login';
+                    return false;
+                }
+                
+                const data = await response.json();
+                
+                if (!data.authenticated) {
+                    console.log('❌ No autenticado, redirigiendo a login');
+                    window.location.href = '/login';
+                    return false;
+                }
+                
+                console.log('✅ Usuario autenticado:', data.user?.usuario);
+                return true;
+            } catch (error) {
+                console.error('Error al verificar autenticación:', error);
+                window.location.href = '/login';
+                return false;
+            }
+        }
+
+        // Verificar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isAuthenticated = await checkAuthAndProtect();
+            if (!isAuthenticated) {
+                return; // Detener la ejecución si no está autenticado
+            }
+
+            // Si llegamos aquí, el usuario está autenticado
+            initializeDashboard();
+        });
+
+        // Función para inicializar el dashboard (solo se ejecuta si está autenticado)
+        function initializeDashboard() {
+            // Función para cerrar sesión
+            async function logout() {
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        console.log('✅ Sesión cerrada correctamente');
+                        // Redirigir al home
+                        window.location.href = '/';
+                    } else {
+                        console.error('Error al cerrar sesión:', response.status);
+                        alert('Error al cerrar sesión');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error al conectar con el servidor');
+                }
+            }
+
+            // Event listener para el botón de logout
+            const btnLogout = document.getElementById('btnLogout');
+            if (btnLogout) {
+                btnLogout.addEventListener('click', logout);
+            }
+
+            // CRUD Usuarios
+            // Usuarios
+            const formUsuario = document.querySelector('#addUsuarioModal form');
+            const tablaUsuarios = document.querySelector('#usuarios + .card .table tbody');
+            let usuarios = [
+                {usuario: 'admin', email: 'admin@smartshop.com', rol: 'Administrador'},
+            ];
+            function renderUsuarios() {
+                tablaUsuarios.innerHTML = '';
+                usuarios.forEach((u, idx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${u.usuario}</td>
+                        <td>${u.email}</td>
+                        <td>${u.rol}</td>
+                        <td>
+                            <button class='btn btn-morado btn-sm ver-btn' data-idx='${idx}'>Ver</button>
+                            <button class='btn btn-morado btn-sm editar-btn' data-idx='${idx}'>Editar</button>
+                            <button class='btn btn-danger btn-sm eliminar-btn' data-idx='${idx}'>Eliminar</button>
+                        </td>
+                    `;
+                    tablaUsuarios.appendChild(fila);
+                });
+            }
+            renderUsuarios();
+            formUsuario.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const usuario = document.getElementById('nuevo_usuario').value;
+                const email = document.getElementById('nuevo_email').value;
+                const rol = document.getElementById('nuevo_rol').value;
+                usuarios.push({usuario, email, rol});
+                renderUsuarios();
+                formUsuario.reset();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('addUsuarioModal'));
+                modal.hide();
+            });
+            tablaUsuarios.addEventListener('click', function(e) {
+                if(e.target.classList.contains('ver-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const u = usuarios[idx];
+                    document.getElementById('verUsuarioBody').innerHTML = `
+                        <p><strong>Usuario:</strong> ${u.usuario}</p>
+                        <p><strong>Email:</strong> ${u.email}</p>
+                        <p><strong>Rol:</strong> ${u.rol}</p>
+                    `;
+                    var modal = new bootstrap.Modal(document.getElementById('verUsuarioModal'));
+                    modal.show();
+                }
+                if(e.target.classList.contains('editar-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const u = usuarios[idx];
+                    document.getElementById('editar_usuario').value = u.usuario;
+                    document.getElementById('editar_email').value = u.email;
+                    document.getElementById('editar_rol').value = u.rol;
+                    document.getElementById('formEditarUsuario').setAttribute('data-idx', idx);
+                    var modal = new bootstrap.Modal(document.getElementById('editarUsuarioModal'));
+                    modal.show();
+                }
+                if(e.target.classList.contains('eliminar-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    if(confirm('¿Seguro que deseas eliminar este usuario?')) {
+                        usuarios.splice(idx, 1);
+                        renderUsuarios();
+                    }
+                }
+            });
+            document.getElementById('formEditarUsuario').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const idx = this.getAttribute('data-idx');
+                usuarios[idx] = {
+                    usuario: document.getElementById('editar_usuario').value,
+                    email: document.getElementById('editar_email').value,
+                    rol: document.getElementById('editar_rol').value
+                };
+                renderUsuarios();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('editarUsuarioModal'));
+                modal.hide();
+            });
+
+            // Productos
+            const formProducto = document.querySelector('#addProductoModal form');
+            const tablaProductos = document.querySelector('#productos + .card .table tbody');
+            let productos = [
+                {nombre: 'Smartphone', descripcion: 'Pantalla AMOLED, cámara 108MP', servicios: [
+                    {nombre: 'Reparación', descripcion: 'Servicio técnico especializado para este producto'}
+                ]},
+            ];
+            function renderProductos() {
+                tablaProductos.innerHTML = '';
+                productos.forEach((p, idx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${p.nombre}</td>
+                        <td>${p.descripcion}</td>
+                        <td><button class='btn btn-morado btn-sm servicios-btn' data-idx='${idx}'>Gestionar Servicios</button></td>
+                        <td>
+                            <button class='btn btn-morado btn-sm ver-prod-btn' data-idx='${idx}'>Ver</button>
+                            <button class='btn btn-morado btn-sm editar-prod-btn' data-idx='${idx}'>Editar</button>
+                            <button class='btn btn-danger btn-sm eliminar-prod-btn' data-idx='${idx}'>Eliminar</button>
+                        </td>
+                    `;
+                    tablaProductos.appendChild(fila);
+                });
+            }
+            renderProductos();
+            formProducto.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nombre = document.getElementById('nombreProducto').value;
+                const descripcion = document.getElementById('descProducto').value;
+                productos.push({nombre, descripcion, servicios: []});
+                renderProductos();
+                formProducto.reset();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('addProductoModal'));
+                modal.hide();
+            });
+            tablaProductos.addEventListener('click', function(e) {
+                // Ver producto
+                if(e.target.classList.contains('ver-prod-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const p = productos[idx];
+                    alert(`Producto: ${p.nombre}\nDescripción: ${p.descripcion}`);
+                }
+                // Editar producto
+                if(e.target.classList.contains('editar-prod-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const p = productos[idx];
+                    document.getElementById('nombreProducto').value = p.nombre;
+                    document.getElementById('descProducto').value = p.descripcion;
+                    formProducto.setAttribute('data-idx', idx);
+                    var modal = new bootstrap.Modal(document.getElementById('addProductoModal'));
+                    modal.show();
+                }
+                // Eliminar producto
+                if(e.target.classList.contains('eliminar-prod-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    if(confirm('¿Seguro que deseas eliminar este producto?')) {
+                        productos.splice(idx, 1);
+                        renderProductos();
+                    }
+                }
+                // Gestionar servicios
+                if(e.target.classList.contains('servicios-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    renderServiciosProducto(idx);
+                    document.getElementById('serviciosProductoModal').setAttribute('data-idx', idx);
+                    var modal = new bootstrap.Modal(document.getElementById('serviciosProductoModal'));
+                    modal.show();
+                }
+            });
+            // Actualizar producto
+            formProducto.addEventListener('submit', function(e) {
+                if(formProducto.hasAttribute('data-idx')) {
+                    e.preventDefault();
+                    const idx = formProducto.getAttribute('data-idx');
+                    productos[idx].nombre = document.getElementById('nombreProducto').value;
+                    productos[idx].descripcion = document.getElementById('descProducto').value;
+                    renderProductos();
+                    formProducto.reset();
+                    formProducto.removeAttribute('data-idx');
+                    var modal = bootstrap.Modal.getInstance(document.getElementById('addProductoModal'));
+                    modal.hide();
+                }
+            });
+
+            // Servicios de producto
+            const formServicioProducto = document.querySelector('#addServicioProductoModal form');
+            function renderServiciosProducto(idx) {
+                const tablaServicios = document.querySelector('#serviciosProductoModal .table tbody');
+                tablaServicios.innerHTML = '';
+                productos[idx].servicios.forEach((s, sidx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${s.nombre}</td>
+                        <td>${s.descripcion}</td>
+                        <td>
+                            <button class='btn btn-morado btn-sm editar-serv-btn' data-sidx='${sidx}'>Editar</button>
+                            <button class='btn btn-danger btn-sm eliminar-serv-btn' data-sidx='${sidx}'>Eliminar</button>
+                        </td>
+                    `;
+                    tablaServicios.appendChild(fila);
+                });
+                tablaServicios.addEventListener('click', function(e) {
+                    const prodIdx = document.getElementById('serviciosProductoModal').getAttribute('data-idx');
+                    // Editar servicio
+                    if(e.target.classList.contains('editar-serv-btn')) {
+                        const sidx = e.target.getAttribute('data-sidx');
+                        document.getElementById('nombreServicioProducto').value = productos[prodIdx].servicios[sidx].nombre;
+                        document.getElementById('descServicioProducto').value = productos[prodIdx].servicios[sidx].descripcion;
+                        formServicioProducto.setAttribute('data-sidx', sidx);
+                        var modal = new bootstrap.Modal(document.getElementById('addServicioProductoModal'));
+                        modal.show();
+                    }
+                    // Eliminar servicio
+                    if(e.target.classList.contains('eliminar-serv-btn')) {
+                        const sidx = e.target.getAttribute('data-sidx');
+                        if(confirm('¿Seguro que deseas eliminar este servicio?')) {
+                            productos[prodIdx].servicios.splice(sidx, 1);
+                            renderServiciosProducto(prodIdx);
+                        }
+                    }
+                });
+            }
+            formServicioProducto.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const prodIdx = document.getElementById('serviciosProductoModal').getAttribute('data-idx');
+                const nombre = document.getElementById('nombreServicioProducto').value;
+                const descripcion = document.getElementById('descServicioProducto').value;
+                if(formServicioProducto.hasAttribute('data-sidx')) {
+                    const sidx = formServicioProducto.getAttribute('data-sidx');
+                    productos[prodIdx].servicios[sidx] = {nombre, descripcion};
+                    formServicioProducto.removeAttribute('data-sidx');
+                } else {
+                    productos[prodIdx].servicios.push({nombre, descripcion});
+                }
+                renderServiciosProducto(prodIdx);
+                formServicioProducto.reset();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('addServicioProductoModal'));
+                modal.hide();
+            });
+
+            // Ventas
+            const formVenta = document.querySelector('#addVentaModal form');
+            const tablaVentas = document.querySelector('#ventas + .card .table tbody');
+            let ventas = [
+                {id: '001', producto: 'Smartphone', usuario: 'admin', fecha: '2025-07-22', total: 500},
+            ];
+            function renderVentas() {
+                tablaVentas.innerHTML = '';
+                ventas.forEach((v, idx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${v.id}</td>
+                        <td>${v.producto}</td>
+                        <td>${v.usuario}</td>
+                        <td>${v.fecha}</td>
+                        <td>$${v.total}</td>
+                        <td>
+                            <button class='btn btn-morado btn-sm ver-venta-btn' data-idx='${idx}'>Ver</button>
+                            <button class='btn btn-danger btn-sm eliminar-venta-btn' data-idx='${idx}'>Eliminar</button>
+                        </td>
+                    `;
+                    tablaVentas.appendChild(fila);
+                });
+            }
+            renderVentas();
+            formVenta.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = '00' + (ventas.length + 1);
+                const producto = document.getElementById('productoVenta').value;
+                const usuario = document.getElementById('usuarioVenta').value;
+                const fecha = document.getElementById('fechaVenta').value;
+                const total = document.getElementById('totalVenta').value;
+                ventas.push({id, producto, usuario, fecha, total});
+                renderVentas();
+                formVenta.reset();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('addVentaModal'));
+                modal.hide();
+            });
+            tablaVentas.addEventListener('click', function(e) {
+                if(e.target.classList.contains('ver-venta-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const v = ventas[idx];
+                    alert(`Venta: ${v.id}\nProducto: ${v.producto}\nUsuario: ${v.usuario}\nFecha: ${v.fecha}\nTotal: $${v.total}`);
+                }
+                if(e.target.classList.contains('eliminar-venta-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    if(confirm('¿Seguro que deseas eliminar esta venta?')) {
+                        ventas.splice(idx, 1);
+                        renderVentas();
+                    }
+                }
+            });
+
+            // Facturas
+            const formFactura = document.querySelector('#addFacturaModal form');
+            const tablaFacturas = document.querySelector('#facturas + .card .table tbody');
+            let facturas = [
+                {id: 'F001', venta: '001', usuario: 'admin', fecha: '2025-07-22', total: 500},
+            ];
+            function renderFacturas() {
+                tablaFacturas.innerHTML = '';
+                facturas.forEach((f, idx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${f.id}</td>
+                        <td>${f.venta}</td>
+                        <td>${f.usuario}</td>
+                        <td>${f.fecha}</td>
+                        <td>$${f.total}</td>
+                        <td>
+                            <button class='btn btn-morado btn-sm ver-fact-btn' data-idx='${idx}'>Ver</button>
+                            <button class='btn btn-danger btn-sm eliminar-fact-btn' data-idx='${idx}'>Eliminar</button>
+                        </td>
+                    `;
+                    tablaFacturas.appendChild(fila);
+                });
+            }
+            renderFacturas();
+            formFactura.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = 'F00' + (facturas.length + 1);
+                const venta = document.getElementById('idVentaFactura').value;
+                const usuario = document.getElementById('usuarioFactura').value;
+                const fecha = document.getElementById('fechaFactura').value;
+                const total = document.getElementById('totalFactura').value;
+                facturas.push({id, venta, usuario, fecha, total});
+                renderFacturas();
+                formFactura.reset();
+                var modal = bootstrap.Modal.getInstance(document.getElementById('addFacturaModal'));
+                modal.hide();
+            });
+            tablaFacturas.addEventListener('click', function(e) {
+                if(e.target.classList.contains('ver-fact-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const f = facturas[idx];
+                    alert(`Factura: ${f.id}\nVenta: ${f.venta}\nUsuario: ${f.usuario}\nFecha: ${f.fecha}\nTotal: $${f.total}`);
+                }
+                if(e.target.classList.contains('eliminar-fact-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    if(confirm('¿Seguro que deseas eliminar esta factura?')) {
+                        facturas.splice(idx, 1);
+                        renderFacturas();
+                    }
+                }
+            });
+
+            // Reportes
+            const tablaReportes = document.querySelector('#reportes + .card .table tbody');
+            let reportes = [
+                {tipo: 'Ventas', fecha: '2025-07-22', usuario: 'admin'},
+                {tipo: 'Facturas', fecha: '2025-07-22', usuario: 'admin'},
+            ];
+            function renderReportes() {
+                tablaReportes.innerHTML = '';
+                reportes.forEach((r, idx) => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${r.tipo}</td>
+                        <td>${r.fecha}</td>
+                        <td>${r.usuario}</td>
+                        <td><button class='btn btn-morado btn-sm ver-reporte-btn' data-idx='${idx}'>Ver</button>
+                            <button class='btn btn-danger btn-sm eliminar-reporte-btn' data-idx='${idx}'>Eliminar</button></td>
+                    `;
+                    tablaReportes.appendChild(fila);
+                });
+            }
+            renderReportes();
+            document.querySelector('#reportes .btn-morado').addEventListener('click', function() {
+                const tipo = prompt('Tipo de reporte (Ventas/Facturas):');
+                const fecha = new Date().toISOString().slice(0,10);
+                const usuario = 'admin';
+                if(tipo) {
+                    reportes.push({tipo, fecha, usuario});
+                    renderReportes();
+                }
+            });
+            tablaReportes.addEventListener('click', function(e) {
+                if(e.target.classList.contains('ver-reporte-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    const r = reportes[idx];
+                    alert(`Reporte: ${r.tipo}\nFecha: ${r.fecha}\nUsuario: ${r.usuario}`);
+                }
+                if(e.target.classList.contains('eliminar-reporte-btn')) {
+                    const idx = e.target.getAttribute('data-idx');
+                    if(confirm('¿Seguro que deseas eliminar este reporte?')) {
+                        reportes.splice(idx, 1);
+                        renderReportes();
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
